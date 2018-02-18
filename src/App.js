@@ -51,14 +51,15 @@ class BooksApp extends Component {
             <Route exact path="/" render={() => (
 
               <BuildShelves
-                typesShelf   = {this.state.shelf}
-                books   = {this.state.booksApi}
+                books       = {this.state.booksApi}
+                typesShelf  = {this.state.shelf}
                 onUpdateShelf = {this.updateShelf} 
               /> 
             )} />
             <Route path="/search" render={() => (
               <SearchBooks 
-                books   = {this.state.booksApi} 
+                books       = {this.state.booksApi} 
+                typesShelf  = {this.state.shelf}
                 onUpdateShelf = {this.updateShelf} 
               />
             )} />

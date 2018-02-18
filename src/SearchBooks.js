@@ -14,7 +14,7 @@ class SearchBooks extends Component {
 
 	render() {
 		const { query }					= this.state
-		const { books, onUpdateShelf } 	= this.props
+		const { books, typesShelf, onUpdateShelf } 	= this.props
 
 		let bookView
 		if (query) {
@@ -33,10 +33,10 @@ class SearchBooks extends Component {
 				  <div className="search-books-input-wrapper">
 				    
 				    <input
-				    	type		= "text"
-				    	value		= {this.state.query}
-				    	placeholder	= "Search by title or author"
-				    	onChange	= {(event) => this.updateQuery(event.target.value)}
+				    	type="text"
+				    	value={this.state.query}
+				    	placeholder="Search by title or author"
+				    	onChange={(event) => this.updateQuery(event.target.value)}
 				    />
 
 				  </div>
@@ -51,9 +51,22 @@ class SearchBooks extends Component {
 		                    <div className="book-shelf-changer">
 		                      <select onChange={(e) => onUpdateShelf(book, e.target.value)}>
 		                        <option value="none" disabled>Move to...</option>
-		                        <option value="currentlyReading">Currently Reading</option>
-		                        <option value="wantToRead">Want to Read</option>
-		                        <option value="read">Read</option>
+		                        {
+		                        	typesShelf.filter((type) => {
+		                        		return book.shelf === type.type
+		                        	}).map((book) => (
+		                        		<option value={book.type}>{book.title}</option>
+		                        	))
+		                        }
+		                        {
+		                        	typesShelf.filter((type) => {
+		                        		return book.shelf !== type.type
+		                        	}).map((book) => (
+		                        		<option value={book.type}>{book.title}</option>
+		                        	))
+		                        }
+
+		                        		                        
 		                        <option value="none">None</option>
 		                      </select>
 		                    </div>
