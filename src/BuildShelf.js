@@ -1,22 +1,25 @@
 import React, { Component }   from 'react'
-import PropTypes              from 'prop-types'
 
-class ListCurrent extends Component {
-  static propTypes = {
-      onUpdateShelf: PropTypes.func.isRequired
-    }
+
+class BuildShelf extends Component {
 
   render() {
-    const { books, onUpdateShelf } = this.props 
+    const {
+      books, 
+      typeShelf,
+      typesShelf,
+      titleShelf,
+      onUpdateShelf,
+    } = this.props 
 
         
     return(
       <div className="bookshelf">
-        <h2 className="bookshelf-title">Currently Reading</h2>
+        <h2 className="bookshelf-title">{titleShelf}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             { books.filter((book) => {
-              return book.shelf == "currentlyReading"
+              return book.shelf == typeShelf
             })
             .map((book) => (
               <li key={book.id}>
@@ -29,15 +32,20 @@ class ListCurrent extends Component {
                         value={book.shelf}
                       >
                         <option value="none" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
+                        <option value="{typeShelf}">  {titleShelf} </option>
+
+                        { typesShelf.filter((shelf) => {
+                            return shelf.type !== typeShelf
+                          }).map((shelf) => (
+                            <option value={shelf.type}>{shelf.title}</option>
+                          ))
+                        }
                         <option value="none">None</option>
                       </select>
                     </div>
                   </div>
                   <div className="book-title">{book.title}</div>
-                  <div className="book-authors">{book.author}</div>
+                  <div className="book-authors">{book.authors}</div>
                 </div>
               </li>
             ))
@@ -51,4 +59,4 @@ class ListCurrent extends Component {
 }
 
 
-export default ListCurrent
+export default BuildShelf

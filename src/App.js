@@ -1,5 +1,5 @@
 import React, { Component }   from 'react'
-import ListAll                from './ListAll'
+import BuildShelves           from './BuildShelves'
 import SearchBooks            from './SearchBooks'
 import * as BooksAPI          from './BooksAPI'
 import { Switch, BrowserRouter, Route }     from 'react-router-dom'
@@ -27,6 +27,20 @@ class BooksApp extends Component {
 
   state = {
     booksApi: [],
+    shelf:    [
+      { 
+        'type'  : 'read',
+        'title' : 'Read'
+      },
+      { 
+        'type'  : 'wantToRead',
+        'title' : 'Wish List' 
+      },
+      { 
+        'type'  : 'currentlyReading',
+        'title' : 'Currently Reading'
+      },
+    ],
   }
 
   render() {
@@ -36,16 +50,16 @@ class BooksApp extends Component {
           <Switch>
             <Route exact path="/" render={() => (
 
-              <ListAll
-                pie={this.pie}
-                books={this.state.booksApi}
-                onUpdateShelf={this.updateShelf} 
+              <BuildShelves
+                typesShelf   = {this.state.shelf}
+                books   = {this.state.booksApi}
+                onUpdateShelf = {this.updateShelf} 
               /> 
             )} />
             <Route path="/search" render={() => (
               <SearchBooks 
-                books={this.state.booksApi} 
-                onUpdateShelf={this.updateShelf} 
+                books   = {this.state.booksApi} 
+                onUpdateShelf = {this.updateShelf} 
               />
             )} />
           </Switch>
