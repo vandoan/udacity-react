@@ -51,16 +51,16 @@ class BooksApp extends Component {
             <Route exact path="/" render={() => (
 
               <BuildShelves
-                books       = {this.state.booksApi}
-                typesShelf  = {this.state.shelf}
-                onUpdateShelf = {this.updateShelf} 
+                books={this.state.booksApi}
+                typesShelf={this.state.shelf}
+                onUpdateShelf={this.updateShelf} 
               /> 
             )} />
             <Route path="/search" render={() => (
               <SearchBooks 
-                books       = {this.state.booksApi} 
-                typesShelf  = {this.state.shelf}
-                onUpdateShelf = {this.updateShelf} 
+                books={this.state.booksApi} 
+                typesShelf={this.state.shelf}
+                onUpdateShelf={this.updateShelf} 
               />
             )} />
           </Switch>

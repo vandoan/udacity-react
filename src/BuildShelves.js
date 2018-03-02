@@ -22,25 +22,25 @@ static propTypes = {
         <div className="list-books-content">
           <div>
             <BuildShelf 
-              books       = {books} 
-              typesShelf  = {typesShelf}
-              typeShelf   = "currentlyReading"
-              titleShelf  = "Currently Reading"
-              onUpdateShelf = {onUpdateShelf} 
+              books={books} 
+              typesShelf={typesShelf}
+              typeShelf="currentlyReading"
+              titleShelf="Currently Reading"
+              onUpdateShelf={onUpdateShelf} 
             />
             <BuildShelf 
-              books       = {books} 
-              typesShelf  = {typesShelf}
-              typeShelf   = "read"
-              titleShelf  = "Read"
-              onUpdateShelf = {onUpdateShelf} 
+              books={books} 
+              typesShelf={typesShelf}
+              typeShelf="read"
+              titleShelf="Read"
+              onUpdateShelf={onUpdateShelf} 
             />
             <BuildShelf 
-              books       = {books} 
-              typesShelf  = {typesShelf}
-              typeShelf   = "wantToRead"
-              titleShelf  = "Wish List"
-              onUpdateShelf = {onUpdateShelf} 
+              books={books} 
+              typesShelf={typesShelf}
+              typeShelf="wantToRead"
+              titleShelf="Wish List"
+              onUpdateShelf={onUpdateShelf} 
             />
             
           </div>

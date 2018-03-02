@@ -14,12 +14,12 @@ class BuildShelf extends Component {
 
         
     return(
-      <div className="bookshelf">
+      <div className="bookshelf" key="shelf-1">
         <h2 className="bookshelf-title">{titleShelf}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             { books.filter((book) => {
-              return book.shelf == typeShelf
+              return book.shelf === typeShelf
             })
             .map((book) => (
               <li key={book.id}>
@@ -37,7 +37,7 @@ class BuildShelf extends Component {
                         { typesShelf.filter((shelf) => {
                             return shelf.type !== typeShelf
                           }).map((shelf) => (
-                            <option value={shelf.type}>{shelf.title}</option>
+                            <option key={shelf.typeShelf} value={shelf.type}>{shelf.title}</option>
                           ))
                         }
                         <option value="none">None</option>

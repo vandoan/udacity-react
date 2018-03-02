@@ -1,23 +1,50 @@
-import { Link } 					from 'react-router-dom'
-import escapeRegExp 				from 'escape-string-regexp'
-import React, { Component }			from 'react'
+import { Link } 				from 'react-router-dom'
+import escapeRegExp 			from 'escape-string-regexp'
+import React, { Component }		from 'react'
+import * as BooksAPI          	from './BooksAPI'
+import BuildOptionsSearch		from './BuildOptionsSearch'
+
 
 
 class SearchBooks extends Component {
 	state = {
-		query: ''
+		query: '',
+		booksSearch: [],
+		errorSearch: false,
+	}	
+
+	searchBooks = (e) => {
+		const query = e.target.value
+		this.setState({ query: query })
+
+		if(query.length === 0) {
+			this.clearStateBooks()
+		} else {
+			BooksAPI.search(query)
+			.then((booksReturned) => {
+				console.log(booksReturned)
+				if(booksReturned.error){
+					this.setState({ errorSearch: true })
+					this.setState({ booksSearch: [] })
+					console.log("Book search error")
+				} else {
+					this.setState({ errorSearch: false })
+					this.setState({ booksSearch: booksReturned })
+				}
+			})
+		}
 	}
-	
+
 	updateQuery = (query) => {
 		this.setState({ query: query })
 	}
 
 	render() {
-		const { query }					= this.state
+		const { query, booksSearch }	= this.state
 		const { books, typesShelf, onUpdateShelf } 	= this.props
 
 		let bookView
-		if (query) {
+		if (query > 0) {
 			const match = new RegExp(escapeRegExp(query), 'i')
 			bookView = books.filter((book) => 
 				match.test(book.title) || match.test(book.authors) 
@@ -36,39 +63,24 @@ class SearchBooks extends Component {
 				    	type="text"
 				    	value={this.state.query}
 				    	placeholder="Search by title or author"
-				    	onChange={(event) => this.updateQuery(event.target.value)}
+				    	onChange={(event) => this.searchBooks(event)}
 				    />
-
 				  </div>
+
 				</div>
 				<div className="search-books-results">
 				  <ol className="books-grid">
-		            { bookView.map((book) => (
+		            { booksSearch.map((book) => (
+		            	 
 		              <li key={book.id}>
 		                <div className="book">
 		                  <div className="book-top">
-		                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+ book.imageLinks.thumbnail + ')' }}></div>
+		                  { book.imageLinks && 
+		                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+		                    }
 		                    <div className="book-shelf-changer">
-		                      <select onChange={(e) => onUpdateShelf(book, e.target.value)}>
-		                        <option value="none" disabled>Move to...</option>
-		                        {
-		                        	typesShelf.filter((type) => {
-		                        		return book.shelf === type.type
-		                        	}).map((book) => (
-		                        		<option value={book.type}>{book.title}</option>
-		                        	))
-		                        }
-		                        {
-		                        	typesShelf.filter((type) => {
-		                        		return book.shelf !== type.type
-		                        	}).map((book) => (
-		                        		<option value={book.type}>{book.title}</option>
-		                        	))
-		                        }
-
-		                        		                        
-		                        <option value="none">None</option>
-		                      </select>
+		                    	<BuildOptionsSearch books={books} bookCurrent={book} onUpdateShelf={onUpdateShelf} />
+		                      
 		                    </div>
 		                  </div>
 		                  <div className="book-title">{book.title}</div>
