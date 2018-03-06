@@ -1,8 +1,5 @@
 # MyReads Project
 
-
-This project was build on Udacity's starter template.
-
 To start, clone the project with Git.
 Then, change directory (terminal command "cd") into the project's folder.
 Afterward, run "npm install". Possibly, you need to use sudo.
@@ -30,11 +27,12 @@ To get started developing right away:
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
-        - ListAll.js        # List the three shelves
-        - ListBookshelf     # List books that are read
-        - ListCurrent.js    # List the current books
-        - ListNext.js       # List the wish list books
-        - SearchBooks.js    # Search page that list all the API books
+        - App.js            # Holds the pages for site
+        - BooksAPI          # Contains the functions for the api call
+        - BuildOptionsSearch.js    # Builds the select options for each book on the search page
+        - BuildShelf.js     # Build a shelf with the books
+        - BuildShelves.js   # Build the main page and all its shelves
+        - SearchBooks.js    # Search page
     ├── icons # Helpful images for your app. Use at your discretion.
     │   ├── add.svg
     │   ├── arrow-back.svg
@@ -44,7 +42,6 @@ To get started developing right away:
 
 ```
 
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
 
 ## Backend Server
 
@@ -90,14 +87,4 @@ search(query)
 * These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
 ## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
-
-## Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results. 

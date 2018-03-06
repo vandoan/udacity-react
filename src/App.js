@@ -16,13 +16,28 @@ class BooksApp extends Component {
       })
   }
  
-  updateShelf = (book, shelf) => {
-    BooksAPI
-      .update(book, shelf)
-      .then(updated => (BooksAPI.getAll().then((books) => {
-        this.setState({booksApi: books})
-        // this.updateSearchedResult(this.state.filteredBooks)
-      })))
+  updateShelf = (bookNew, shelfNew) => {
+
+      BooksAPI.update(bookNew, shelfNew).then(response =>{
+      // set shelf for new or updated book
+      bookNew.shelf = shelfNew
+
+      // get list of books without updated or new book
+      var updatedBooks = this.state.booksApi.filter( book => book.id !== bookNew.id )
+
+      // add book to array and set new state
+      updatedBooks.push(bookNew);
+      this.setState({ booksApi: updatedBooks })
+    })
+
+      console.log(shelfNew)
+
+BooksAPI.get(bookNew.id).then(book => {
+  console.log(book.shelf)
+})
+
+
+      console.log(bookNew.id)
   }
 
   state = {
@@ -69,12 +84,6 @@ class BooksApp extends Component {
     )
   }
 }
-
-/**
- * TODO: Instead of using this state variable to keep track of which page
- * we're on, use the URL in the browser's address bar. This will ensure that
- * users can use the browser's back and forward buttons to navigate between
- * pages, as well as provide a good URL they can bookmark and share.
- */
+ 
  
 export default BooksApp

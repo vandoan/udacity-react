@@ -11,7 +11,7 @@ class  BuildOptionsSearch extends Component {
 		
 		for(let book of books) {
 			if(book.id === bookCurrent.id) { // check id against user books id
-				currentType = book.type // if match, set the type
+				currentType = book.shelf // if match, set the type
 			}
 		} 
 
